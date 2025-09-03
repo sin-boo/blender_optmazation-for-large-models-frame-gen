@@ -22,64 +22,71 @@ def check_package(package_name):
     except ImportError:
         return False
 
+def check_ffmpeg():
+    """Check if FFmpeg is installed"""
+    try:
+        result = subprocess.run(["ffmpeg", "-version"], capture_output=True, text=True)
+        return result.returncode == 0
+    except FileNotFoundError:
+        return False
+
 def install_requirements():
     """Install all required packages if not already installed"""
     print("RIFE GUI Complete Installer & Launcher")
     print("=" * 40)
     print("Checking requirements...")
     
-    required_packages = {
-        'PyQt5': 'PyQt5',
-        # Add more packages here as needed
-        # 'torch': 'torch',
-        # 'opencv-python': 'cv2',
-    }
+    # Check PyQt5
+    if not check_package('PyQt5'):
+        print("✗ PyQt5 not found. Installing...")
+        try:
+            install_package('PyQt5')
+            print("✓ PyQt5 installed successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"✗ Failed to install PyQt5: {e}")
+            return False
+    else:
+        print("✓ PyQt5 is already installed")
     
-    all_installed = True
+    # Check FFmpeg
+    if not check_ffmpeg():
+        print("✗ FFmpeg not found!")
+        print("  Please install FFmpeg from: https://ffmpeg.org/download.html")
+        print("  Or on Windows: winget install ffmpeg")
+        print("  The GUI will still open, but video processing won't work without FFmpeg.")
+    else:
+        print("✓ FFmpeg is available")
     
-    for display_name, import_name in required_packages.items():
-        print(f"Checking {display_name}...")
-        
-        if check_package(import_name):
-            print(f"✓ {display_name} is already installed")
-        else:
-            print(f"✗ {display_name} not found. Installing...")
-            try:
-                install_package(display_name)
-                print(f"✓ {display_name} installed successfully!")
-            except subprocess.CalledProcessError as e:
-                print(f"✗ Failed to install {display_name}: {e}")
-                all_installed = False
+    return True
+
+def launch_gui():
+    """Launch the RIFE GUI"""
+    print("\n" + "=" * 40)
+    print("Launching RIFE GUI...")
     
-    if all_installed:
-        print("✓ All requirements satisfied!")
+    # Look for the GUI file
+    gui_file = 'rife_gui_app.py'
     
-    return all_installed
+    if os.path.exists(gui_file):
+        try:
+            subprocess.run([sys.executable, gui_file])
+            print("GUI closed successfully.")
+        except Exception as e:
+            print(f"Failed to run {gui_file}: {e}")
+            input("Press Enter to exit...")
+    else:
+        print(f"Error: {gui_file} not found in current directory!")
+        print("Make sure rife_gui_app.py exists in this folder.")
+        input("Press Enter to exit...")
 
 def main():
-    print("RIFE GUI Launcher")
-    print("=" * 30)
-    
-    # Install requirements
+    # Install requirements first
     if not install_requirements():
         input("Press Enter to exit...")
         return
     
-    print("\nLaunching RIFE GUI...")
-    
-    # Try to run the GUI
-    gui_files = ['rife_gui_app.py', 'gui.py']
-    
-    for gui_file in gui_files:
-        if os.path.exists(gui_file):
-            try:
-                subprocess.run([sys.executable, gui_file])
-                return
-            except Exception as e:
-                print(f"Failed to run {gui_file}: {e}")
-    
-    print("No GUI file found! Make sure rife_gui_app.py or gui.py exists in this folder.")
-    input("Press Enter to exit...")
+    # Launch the GUI
+    launch_gui()
 
 if __name__ == "__main__":
     main()

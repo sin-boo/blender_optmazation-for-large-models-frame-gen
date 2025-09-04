@@ -1,0 +1,56 @@
+🖥️ SCREEN CAPTURE APPLICATION - INSTALLATION GUIDE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 QUICK INSTALL (EASIEST):
+
+   1. Right-click "INSTALL_AND_RUN.bat" 
+   2. Select "Run as administrator" (for best results)
+   3. Wait for automatic installation (2-5 minutes)
+   4. Application will launch automatically!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 ALTERNATIVE METHODS:
+
+METHOD 1: PowerShell (Most Reliable)
+   1. Right-click "Install.ps1" 
+   2. Select "Run with PowerShell"
+   3. If prompted, type "Y" to allow execution
+   4. Follow the prompts
+
+METHOD 2: Manual Python Install
+   1. Go to https://python.org
+   2. Download Python 3.7 or newer
+   3. Check "Add Python to PATH" during installation
+   4. Double-click "START_HERE.bat"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ WHAT YOU GET:
+
+🌙 Modern Dark Theme GUI
+🪟 OBS-Style Window Selection 
+📺 Full Screen Capture
+🌐 Built-in HTTP Server
+💾 Local Frame Storage
+⚙️ Zero Configuration Required
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 TROUBLESHOOTING:
+
+"Access denied" → Run as administrator
+"Python not found" → Use METHOD 1 or 2 above  
+"Import errors" → Run the installer again
+"No windows found" → Click refresh in the app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 AFTER INSTALLATION:
+
+✅ Double-click "START_HERE.bat" to run anytime
+✅ Copy this entire folder to share with others  
+✅ No additional installation needed on other computers
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

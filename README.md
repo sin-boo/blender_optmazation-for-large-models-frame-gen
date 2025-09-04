@@ -56,18 +56,55 @@ pywin32 (Windows only)
    cd rife-gui-app
    ```
 
-## 🎮 Usage
+## 🚀 Quick Start
 
-### Quick Start
+### 🎯 **Easiest Way - Use the Launcher**
 ```bash
-python gpu_only_rtx_5060_ti.py
+python LAUNCH_RIFE.py
+```
+The launcher provides a simple GUI to choose the right implementation for your needs.
+
+### 📊 **Run Performance Benchmark**
+```bash
+python gpu_benchmark.py
+```
+Test your GPU performance and get optimization recommendations.
+
+### ⚡ **Direct Launch - Performance Implementations**
+
+1. **`core/gpu_rife_optimized.py`** - 🚀 High-performance GPU-only with advanced optimizations
+2. **`core/gpu_only_rtx_5060_ti.py`** - 💎 Specifically optimized for RTX 5060 Ti
+3. **`core/final_gpu_only_rife.py`** - ⚡ Complete GPU-only real-time processing
+4. **`core/rtx_5060_ti_optimized_rife.py`** - 🔧 Alternative optimized version
+
+## 📁 Project Structure
+
+The project is organized for easy navigation:
+
+```
+rife-gui-app/
+├── 🚀 LAUNCH_RIFE.py          # Main launcher (START HERE)
+├── 📊 gpu_benchmark.py        # Performance benchmark system
+├── 📄 README.md              # This documentation
+│
+├── 🔥 core/                   # High-performance implementations
+│   ├── gpu_rife_optimized.py  # Advanced optimized version
+│   ├── gpu_only_rtx_5060_ti.py # RTX 5060 Ti specific
+│   ├── final_gpu_only_rife.py # Complete GPU-only RIFE
+│   └── rife_engine.py         # Traditional RIFE engine
+│
+├── 🛠️ tools/                  # Utilities and testing
+│   ├── check_gpu_cuda_status.py
+│   ├── auto_gpu_setup.py
+│   └── test_*.py             # Testing scripts
+│
+├── 📚 docs/                  # Documentation
+├── 📁 legacy/               # Development versions
+└── 🖼️ examples/             # Sample outputs
 ```
 
-### Main Applications
-
-1. **`gpu_only_rtx_5060_ti.py`** - Final optimized GPU-only implementation
-2. **`rtx_5060_ti_optimized_rife.py`** - Alternative optimized version
-3. **`final_gpu_only_rife.py`** - Complete GPU-only implementation
+### 🎯 **For New Users**
+Just run `python LAUNCH_RIFE.py` - it guides you to the right tool!
 
 ### GUI Controls
 

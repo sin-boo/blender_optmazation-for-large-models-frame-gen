@@ -40,6 +40,18 @@ if (Test-Path $dest) { Remove-Item -Recurse -Force $dest }
 Write-Host "Copying from $SourceDir to $dest"
 Copy-Item -Recurse -Force $SourceDir $dest
 
+# Remove any embedded git repositories to avoid checkout/push issues
+Write-Host "Scanning for embedded .git directories under blend_dlls..."
+$gitDirs = Get-ChildItem -Path $dest -Recurse -Force -Directory -Filter ".git" -ErrorAction SilentlyContinue
+foreach ($g in $gitDirs) {
+  try {
+    Write-Host "Removing embedded git dir:" $g.FullName
+    Remove-Item -Recurse -Force -LiteralPath $g.FullName
+  } catch {
+    Write-Warning "Failed to remove embedded git dir: $($g.FullName)"
+  }
+}
+
 & $git -C $repoRoot add blend_dlls
 $status = & $git -C $repoRoot status --porcelain
 if ($status) {
@@ -48,9 +60,15 @@ if ($status) {
   Write-Host "No changes to commit."
 }
 
+function Invoke-GitChecked {
+  param([string[]]$Args)
+  & $git @Args
+  if ($LASTEXITCODE -ne 0) { throw "git command failed: $Args" }
+}
+
 $pushOk = $true
 try {
-  & $git -C $repoRoot push -u origin $Branch
+  Invoke-GitChecked -Args @('-C', $repoRoot, 'push', '-u', 'origin', $Branch)
 } catch {
   $pushOk = $false
 }
@@ -58,14 +76,16 @@ try {
 if (-not $pushOk) {
   Write-Warning "Initial push failed, attempting rebase onto origin/$Branch..."
   try {
-    & $git -C $repoRoot fetch origin
-    & $git -C $repoRoot pull --rebase origin $Branch
-    & $git -C $repoRoot push -u origin $Branch
+    Invoke-GitChecked -Args @('-C', $repoRoot, 'fetch', 'origin')
+    # Ensure we have the remote branch locally
+    & $git -C $repoRoot branch --list $Branch | Out-Null
+    Invoke-GitChecked -Args @('-C', $repoRoot, 'pull', '--rebase', 'origin', $Branch)
+    Invoke-GitChecked -Args @('-C', $repoRoot, 'push', '-u', 'origin', $Branch)
     $pushOk = $true
   } catch {
     Write-Warning "Rebase push failed, attempting force-with-lease..."
     try {
-      & $git -C $repoRoot push --force-with-lease -u origin $Branch
+      Invoke-GitChecked -Args @('-C', $repoRoot, 'push', '--force-with-lease', '-u', 'origin', $Branch)
       $pushOk = $true
     } catch {
       $pushOk = $false

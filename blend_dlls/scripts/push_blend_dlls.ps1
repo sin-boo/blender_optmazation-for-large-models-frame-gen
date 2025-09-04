@@ -48,11 +48,35 @@ if ($status) {
   Write-Host "No changes to commit."
 }
 
+$pushOk = $true
 try {
   & $git -C $repoRoot push -u origin $Branch
-  Write-Host "Pushed to origin/$Branch successfully."
 } catch {
-  Write-Warning "Push failed. You may need to authenticate (GitHub)."
+  $pushOk = $false
+}
+
+if (-not $pushOk) {
+  Write-Warning "Initial push failed, attempting rebase onto origin/$Branch..."
+  try {
+    & $git -C $repoRoot fetch origin
+    & $git -C $repoRoot pull --rebase origin $Branch
+    & $git -C $repoRoot push -u origin $Branch
+    $pushOk = $true
+  } catch {
+    Write-Warning "Rebase push failed, attempting force-with-lease..."
+    try {
+      & $git -C $repoRoot push --force-with-lease -u origin $Branch
+      $pushOk = $true
+    } catch {
+      $pushOk = $false
+    }
+  }
+}
+
+if ($pushOk) {
+  Write-Host "Pushed to origin/$Branch successfully."
+} else {
+  Write-Warning "Push failed. You may need to authenticate (GitHub) or resolve conflicts."
   Write-Host "Options:"
   Write-Host "  - If you have Git Credential Manager, run git commands again and sign in when prompted."
   Write-Host "  - Or set a Personal Access Token as GITHUB_TOKEN and run:"

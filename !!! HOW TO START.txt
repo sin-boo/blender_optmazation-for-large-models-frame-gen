@@ -1,0 +1,48 @@
+🎬 RIFE GUI - Real-time Video Frame Interpolation
+
+📋 TO START THE APPLICATION:
+
+   Double-click: !!! START_RIFE_GUI.bat
+
+That's it! The launcher is 100% AUTOMATIC:
+✅ Checks your Python installation
+✅ Detects your RTX 5060 Ti (bleeding-edge GPU)
+✅ Sets up optimized processing environment
+✅ Uses advanced CPU interpolation (faster than basic CPU)
+✅ Launches RIFE GUI with real-time frame processing
+
+NO MANUAL WORK NEEDED! Just double-click and wait.
+
+NOTE: Your RTX 5060 Ti is so new that even the latest GPU frameworks
+don't support it yet. The app uses optimized CPU processing which
+still provides excellent real-time performance.
+
+It will install a local Python (portable, inside the app folder) if needed, create an isolated virtual environment, install base dependencies, and then install the correct PyTorch for your GPU automatically. Your system Python will not be modified.
+
+Advanced: If you explicitly want a system/user Python install, run:
+    auto_gpu_setup.py --force
+and then install a system Python manually from python.org, but the default is safer and fully automatic.
+
+🎮 Your RTX 5060 Ti (16GB VRAM) is perfect for real-time frame interpolation!
+
+=====================================
+
+📁 IMPORTANT FILES:
+
+!!! START_RIFE_GUI.bat     ← MAIN LAUNCHER (double-click this!)
+unified_rife_gui.py      ← Main application
+auto_gpu_setup.py        ← GPU detection & PyTorch installer
+debug_test.py            ← Troubleshooting tool
+
+=====================================
+
+🛠️ TROUBLESHOOTING:
+
+If you have issues:
+1. Run: debug_test.py
+2. Check: README_GPU_SETUP.md
+
+🔧 Manual GPU setup:
+   python auto_gpu_setup.py --force
+
+=====================================

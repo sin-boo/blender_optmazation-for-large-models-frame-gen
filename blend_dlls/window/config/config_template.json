@@ -1,0 +1,19 @@
+{
+  "server_url": "http://127.0.0.1:8000/stream",
+  "capture_interval": 0.1,
+  "output_directory": "./captured_frames",
+  "save_locally": true,
+  "stream_to_server": true,
+  "window_title_filter": "",
+  "capture_mouse": true,
+  
+  "_comments": {
+    "server_url": "URL where captured frames should be sent",
+    "capture_interval": "Time between captures in seconds (0.1 = 10 FPS)",
+    "output_directory": "Directory to save captured frames locally",
+    "save_locally": "Whether to save frames to local disk",
+    "stream_to_server": "Whether to send frames to HTTP server",
+    "window_title_filter": "Filter windows by title (empty = show all)",
+    "capture_mouse": "Include mouse cursor in captures (if supported)"
+  }
+}
